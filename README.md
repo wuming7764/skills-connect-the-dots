@@ -18,40 +18,54 @@ _学习如何在 GitHub 仓库中高效地查找、追踪和关联信息。_
 </header>
 
 <!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
+  <<< Author notes: Step 2 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
 -->
 
-## Step 1: 处理重复的 issue
+## Step 2: 查找历史提交记录
 
-_欢迎来到本课程 :tada:_
+_你已成功关闭那个重复的问题 :wave:_
 
-GitHub 提供了非常实用的功能，可以帮助我们在不同内容之间建立引用关系。
-例如，当你在评论中引用另一个 issue 或 pull request 的编号时，这个编号会自动变成可点击的链接。
-同时，GitHub 还会在被引用的 issue 或 pull request 中自动添加“反向引用”，形成一个双向链接。
-这种机制能让你清晰地追踪不同内容之间的关联关系。
+git 这类版本控制工具的一大优势，是可以回溯文件的修改历史记录。使用 `git blame` 命令，我们不仅能看到是谁修改了代码，还能了解为什么要进行这次修改。
+比如：
 
-![a screenshot of an issue linking to a PR, and a PR with a cross-reference to the issue](https://user-images.githubusercontent.com/6351798/172456846-2daec570-08b0-4ffa-a7cb-41acc50b836e.png)
+- 这个提交对应的是哪个 pull request？
+- 谁审核并通过了它？
+- 在合并前是否运行过测试？
 
-在团队协作开发中，常常会出现重复的 issue。 例如，上图中 issue `#8346` 实际上与之前的 `#8249` 问题重复。
-通过 GitHub 的“交叉引用”功能，我们可以很轻松追踪这些重复项，并在合适的时候关闭重复的 issue。
+这些信息能帮助我们更全面地理解项目的演变过程，而不仅仅是看到“谁改了什么”。
 
-### 创建引用
+### 什么是 `git blame`?
 
-当你在 GitHub 中链接到另一个 issue 或 pull request 时，系统会自动生成引用。
-同时你不需要粘贴完整的链接，只要在评论中输入 `#5`，GitHub 就会自动识别并生成指向编号为 5 的 issue 或 pull request 的链接。
+`git blame` 是一个 Git 命令，用于逐行查看文件的修改历史。它会显示文件中每一行代码最后一次是由谁、在什么时候修改的。
+它能让你找到修改记录的作者、时间，甚至能帮助你推断修改背后的原因。
 
-如果想更精准地引用，可以在输入 `#` 后直接开始输入目标 issue 或 pull request 的标题，GitHub 会自动补全。
-想进一步了解，可以参考文档：[自动链接引用与 URL](https://docs.github.com/en/articles/autolinked-references-and-urls)。
+虽然 “blame” 翻译过来有 “责备” 的意思，但它的真正用途并不是“追责”，而是帮助我们**理解决策背景**、理清代码的演变脉络。
 
-### :keyboard: 实操环节: 找到并关闭重复的 issue
+### 什么是 SHA（安全哈希算法）?
 
-1. 打开 issue #1 (Welcome)
-2. 在评论区输入：`Duplicate of #2`，然后关闭 issue #1。
-3. 等待大约 20 秒，再刷新此教程页面。[GitHub Actions](https://docs.github.com/en/actions) 会自动检测并更新课程进度，进入下一步。
+SHA 是 Git 用来标识对象（如提交、文件、树等）的唯一标识符。 在这里，我们主要关注的是 **commit 的 SHA 值**。
+每个提交都会有一个 40 位的十六进制字符串（例如 `a1b2c3d4e5f6...`），用来唯一表示该次提交。
+
+在 GitHub 上，你可以点击任意一个 commit 查看：
+
+- 该提交中修改的内容。
+- 提交者是谁.
+- 它是否属于某个 pull request。
+
+### :keyboard: 实操环节: 查找历史提交记录
+
+现在需要你找到引发 issue #2 问题的 commit 记录。
+
+1. 进入你仓库的 **Code**（代码）页面。
+2. 打开 `docs` 目录。
+3. 点击 `_sidebar.md` 文件以查看内容。
+4. 在文件上方，点击 **Blame** 按钮，查看该文件中每行的最后修改记录。
+5. 找到提交信息为 `add sidebar to documentation` 的那一条，点击它进入 commit 详情页。
+6. 复制该 commit 的 SHA 值的前 **7 个字符**（即 `commit` 后方那串 40 位十六进制字符串的前 7 位）。
+7. 打开 issue **#2**，在评论区中粘贴刚复制的 7 位 SHA 值，并点击 **Comment**。
+8. 等待大约 20 秒，然后刷新此页面（即本教程页面）。[GitHub Actions](https://docs.github.com/en/actions) 会自动检测进度并进入下一步。
 
 <footer>
 
